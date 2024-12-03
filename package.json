@@ -1,0 +1,14 @@
+{
+  "name": "cvideal_backend",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "scripts": {
+    "start": "node --env-file=.env --watch src/framework/http/server.js",
+    "build": "node build.js"
+  }
+}
