@@ -1,3 +1,4 @@
+require("reflect-metadata");
 const app = require("./app");
 
 app.listen(process.env.PORT, () => {
