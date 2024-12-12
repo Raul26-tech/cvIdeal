@@ -1,6 +1,6 @@
-const { DataSource } = require("typeorm");
+import { DataSource } from "typeorm";
 
-const AppDataSource = new DataSource({
+export const AppDataSource = new DataSource({
   type: "postgres",
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
@@ -9,23 +9,19 @@ const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE,
   synchronize: false,
   logging: true,
-  entities: ["dist/modules/**/*.js"],
-  migrations: ["dist/framework/db/http/migrations/*.js"],
-  cli: {
-    migrationsDir: "src/framework/db/http/migrations",
-  },
+  entities: ["src/modules/**/*{.ts,.js}"],
+  migrations: ["src/framework/db/http/migrations*{.ts,.js}"],
 });
 
-const connectDatabase = async () => {
+export const connectDatabase = async () => {
   try {
     // Iniciando as migrations
     const dataSource = await AppDataSource.initialize();
     console.log("Data Source has been initialized!");
     await dataSource.runMigrations();
     console.log("Migrations has been executed!");
+    return dataSource;
   } catch (error) {
     console.log("Error during Data Source initialization", error);
   }
 };
-
-module.exports = { AppDataSource, connectDatabase };

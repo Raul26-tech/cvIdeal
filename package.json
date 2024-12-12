@@ -1,21 +1,29 @@
 {
   "name": "cvideal_backend",
   "version": "1.0.0",
-  "type": "commonjs",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node --env-file=.env --watch src/framework/http/server.js",
-    "build": "node build.js",
+    "start": "tsnd --respawn -r tsconfig-paths/register --transpile-only src/framework/http/server.ts",
+    "build": "rm -rf dist && tsc && tsc-alias",
     "typeorm": "yarn build && typeorm -d dist/framework/db/database.cli.js"
   },
   "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
+    "inversify": "^6.2.0",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
+    "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.10",
     "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.2"
   }
 }

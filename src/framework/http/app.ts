@@ -1,5 +1,5 @@
-const express = require("express");
-const { connectDatabase } = require("../db/datasource");
+import express from "express";
+import { connectDatabase } from "../db/database";
 
 const app = express();
 
@@ -11,4 +11,4 @@ app.get("/", (_, res) => {
 // Iniciando o banco de dados
 connectDatabase();
 
-module.exports = app;
+export { app };

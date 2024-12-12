@@ -1,6 +1,9 @@
-const { DataSource } = require("typeorm");
+import { DataSource } from "typeorm";
+import { config } from "dotenv";
 
-const AppDataSource = new DataSource({
+config();
+
+export const AppDataSource = new DataSource({
   type: "postgres",
   host: process.env.DB_EXTERNAL_HOST,
   port: Number(process.env.DB_EXTERNAL_PORT),
@@ -11,9 +14,4 @@ const AppDataSource = new DataSource({
   logging: true,
   entities: ["dist/modules/**/*.js"],
   migrations: ["dist/framework/db/http/migrations/*.js"],
-  cli: {
-    migrationsDir: "src/framework/db/http/migrations",
-  },
 });
-
-module.exports = AppDataSource;
