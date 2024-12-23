@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, ErrorRequestHandler } from "express";
+import { NextFunction, Request, Response } from "express";
 import {
   JsonWebTokenError,
   NotBeforeError,
@@ -8,13 +8,11 @@ import { ZodError } from "zod";
 import { AppError } from "../errors/AppError";
 
 export async function catchErrors(
-  error: ErrorRequestHandler,
+  error: Error,
   request: Request,
   response: Response,
-  next: NextFunction
+  _: NextFunction
 ) {
-  console.error("Erro capturado no middleware:", error);
-
   if (error instanceof ZodError) {
     return response.status(400).json({
       message: error.errors[0].message,
@@ -38,6 +36,6 @@ export async function catchErrors(
   }
 
   return response.status(500).json({
-    message: `Internal Server Error: ${error}`,
+    message: `Internal Server Error: ${error.message}`,
   });
 }
