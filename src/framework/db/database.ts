@@ -20,7 +20,7 @@ export const connectDatabase = async () => {
     console.log("Data Source has been initialized!");
     await dataSource.runMigrations();
     console.log("Migrations has been executed!");
-    return dataSource;
+    // return dataSource;
   } catch (error) {
     console.log("Error during Data Source initialization", error);
   }

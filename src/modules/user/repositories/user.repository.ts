@@ -17,4 +17,14 @@ export class UserRepository {
 
     return await this._repository.save(user);
   }
+
+  async findByEmail(email: string) {
+    const user = await this._repository.findOne({
+      where: {
+        email,
+      },
+    });
+
+    return user;
+  }
 }
