@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: true,
   entities: ["src/modules/**/*{.ts,.js}"],
-  migrations: ["src/framework/db/http/migrations*{.ts,.js}"],
+  migrations: ["src/framework/db/migrations*{.ts,.js}"],
 });
 
 export const connectDatabase = async () => {
@@ -20,7 +20,7 @@ export const connectDatabase = async () => {
     console.log("Data Source has been initialized!");
     await dataSource.runMigrations();
     console.log("Migrations has been executed!");
-    return dataSource;
+    // return dataSource;
   } catch (error) {
     console.log("Error during Data Source initialization", error);
   }

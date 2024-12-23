@@ -1,9 +1,20 @@
-import express from "express";
+import express, { ErrorRequestHandler } from "express";
+import cors from "cors";
 import { connectDatabase } from "../db/database";
+import { globalRoutes } from "./routes/global.routes";
+import { catchErrors } from "./middlewares/catchErrors";
 
-const app = express();
+export const app = express();
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use(express.json());
+
+app.use(globalRoutes);
 
 // Rota padrão do sistema
 app.get("/", (_, res) => {
@@ -13,4 +24,4 @@ app.get("/", (_, res) => {
 // Iniciando o banco de dados
 connectDatabase();
 
-export { app };
+// app.use(catchErrors as unknown as ErrorRequestHandler);
