@@ -5,11 +5,6 @@ import { container } from "src/framework/container/inversify.config";
 
 @injectable()
 export class CreateUserController {
-  //   constructor(
-  //     @inject("CreateUserService")
-  //     private readonly CreateUserService: CreateUserService
-  //   ) {}
-
   async handle(req: Request, res: Response) {
     const createUserService = container.resolve(CreateUserService);
 

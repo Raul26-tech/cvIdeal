@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { UserRepository } from "../repositories/user.repository";
 import { CreateUserDto, createUserSchema } from "../dtos/create-user.dto";
-import { hashGenerate } from "@utils/password";
+import { HashGenerate } from "@utils/password";
 import { BadRequest } from "src/framework/http/errors/BadRequest";
 
 @injectable()
@@ -43,7 +43,7 @@ export class CreateUserService {
     }
 
     // Gerando senha criptografada
-    const hashPassword = await hashGenerate(password);
+    const hashPassword = await HashGenerate(password);
 
     const createdUser = await this.userRepository.create({
       name,

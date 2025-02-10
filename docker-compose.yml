@@ -36,4 +36,20 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USERNAME}
 
+  
+  database_test:
+    container_name: cv_database_test
+    image: postgres
+    restart: always
+    env_file:
+      - .env 
+    ports:
+      - ${DB_TEST_EXTERNAL_PORT}:${DB_TEST_PORT}
+    networks:
+      - cv-ideal-network
+    environment:
+      POSTGRES_DB: ${DB_TEST_DATABASE} 
+      POSTGRES_PASSWORD: ${DB_TEST_PASSWORD}
+      POSTGRES_USER: ${DB_TEST_USERNAME}
+
     
