@@ -4,10 +4,19 @@ import cors from "cors";
 import { connectDatabase } from "../db/database";
 import { globalRoutes } from "@framework/http/routes/global.routes";
 import { catchErrors } from "./middlewares/catchErrors";
+import { config } from "dotenv";
 
 export const app = express();
 
-app.use(cors());
+config({
+  path: ".env",
+});
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use(express.json());
 
