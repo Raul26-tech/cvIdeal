@@ -3,7 +3,6 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -15,6 +14,9 @@ export class User {
 
   @Column({ name: "name", type: "varchar" })
   name: string;
+
+  @Column({ name: "cpf", type: "varchar" })
+  cpf: string;
 
   @Column({ name: "email", type: "varchar" })
   email: string;

@@ -10,21 +10,13 @@ export class CreateUserService {
     @inject("UserRepository") private readonly userRepository: UserRepository
   ) {}
 
-  async execute({
-    name,
-    email,
-    emailConfirm,
-    password,
-    passwordConfirm,
-    phone,
-  }: CreateUserDto) {
+  async execute({ name, email, cpf, password, phone }: CreateUserDto) {
     // Validando os dados de entrada
     createUserSchema.parse({
       name,
       email,
-      emailConfirm,
+      cpf,
       password,
-      passwordConfirm,
       phone,
     });
 
@@ -34,20 +26,13 @@ export class CreateUserService {
       throw new BadRequest("O email informado já está em uso.");
     }
 
-    if (email !== emailConfirm) {
-      throw new BadRequest("E-mail e confirmação de e-mail não coincidem.");
-    }
-
-    if (password !== passwordConfirm) {
-      throw new BadRequest("Senha e confirmação de senha não coincidem.");
-    }
-
     // Gerando senha criptografada
     const hashPassword = await HashGenerate(password);
 
     const createdUser = await this.userRepository.create({
       name,
       email,
+      cpf,
       password: hashPassword,
       phone,
       status: "active",
