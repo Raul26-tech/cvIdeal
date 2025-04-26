@@ -7,6 +7,8 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 
+type userType = "user" | "root" | "adm";
+
 @Entity("users")
 export class User {
   @PrimaryGeneratedColumn("uuid")
@@ -29,6 +31,9 @@ export class User {
 
   @Column({ name: "phone", type: "varchar" })
   phone: string;
+
+  @Column({ name: "type", type: "varchar" })
+  type: userType;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

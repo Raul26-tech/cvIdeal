@@ -26,6 +26,7 @@ export const createUserSchema = z.object({
 
   status: z.enum(["active", "inactive"]).optional(),
   phone: z.string().optional(),
+  type: z.enum(["root", "adm", "user"]).optional(),
 });
 
 export type CreateUserDto = z.infer<typeof createUserSchema>;
