@@ -45,6 +45,7 @@ export class SignUpService {
       password: passwordGenerate,
       status: "active",
       phone,
+      type: "user",
     });
 
     return createUser;

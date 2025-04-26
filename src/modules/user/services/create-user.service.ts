@@ -36,6 +36,7 @@ export class CreateUserService {
       password: hashPassword,
       phone,
       status: "active",
+      type: "user",
     });
 
     return createdUser;
