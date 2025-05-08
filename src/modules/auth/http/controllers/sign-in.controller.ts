@@ -1,7 +1,7 @@
 import { container } from "@framework/container/inversify.config";
 import { SignInService } from "@modules/auth/services/sign-in.service";
 import { Request, Response } from "express";
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 
 @injectable()
 export class SignInController {

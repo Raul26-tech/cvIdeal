@@ -5,8 +5,6 @@ export function GenerateToken(userId: string) {
   const secretToken = process.env.AUTH_SECRET_TOKEN;
   const expiresIn = process.env.AUTH_EXPIRES_IN;
 
-  console.log("secretToken", secretToken);
-
   // Gerando o token
   const token = sign({}, secretToken, {
     subject: userId,

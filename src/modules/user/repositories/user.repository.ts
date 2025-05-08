@@ -27,4 +27,12 @@ export class UserRepository {
 
     return user;
   }
+
+  async findById(id: string) {
+    const user = await this._repository.findOne({
+      where: { id },
+    });
+
+    return user;
+  }
 }

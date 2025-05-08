@@ -31,11 +31,11 @@ export class SignInService {
 
     const token = GenerateToken(user.id);
 
-    console.log("token", token);
-
     const response = {
       accessToken: token,
-      ...user,
+      user: {
+        ...user,
+      },
     };
 
     return response;
