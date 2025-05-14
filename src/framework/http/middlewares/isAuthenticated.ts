@@ -10,8 +10,6 @@ export function IsAuthenticated(
   const secretKey = process.env.AUTH_SECRET_TOKEN;
   const authHeader = req.headers.authorization;
 
-  console.log(authHeader);
-
   if (!authHeader) {
     res.status(401).json({ message: "Token de autenticação não fornecido" });
 

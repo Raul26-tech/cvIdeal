@@ -14,7 +14,8 @@ config({
 
 app.use(
   cors({
-    origin: "*",
+    origin: process.env.FRONT_END_ORIGIN,
+    credentials: true,
   })
 );
 
