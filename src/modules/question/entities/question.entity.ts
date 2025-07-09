@@ -23,6 +23,9 @@ export class Question {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Column({ name: "form_id" })
+  formId: string;
+
   @Column({ name: "name" })
   name: string;
 

@@ -1,16 +1,27 @@
 import {
   Column,
   CreateDateColumn,
+  UpdateDateColumn,
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from "typeorm";
 
-@Entity({ name: "form" })
-export class Form {
+@Entity({ name: "answer_content" })
+export class AnswerContent {
   @PrimaryGeneratedColumn("uuid")
   id: string;
+
+  @Column({ name: "order" })
+  order: number;
+
+  @Column({ name: "value" })
+  value: string;
+
+  @Column({ name: "answer_id", type: "uuid" })
+  answerId: string;
+
+  // Haverá um relacionamento com a entidade de Answer
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
