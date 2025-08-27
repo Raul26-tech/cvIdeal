@@ -1,3 +1,6 @@
+import { Form } from "@modules/form/entities/form.entity";
+import { Question } from "@modules/question/entities/question.entity";
+import { User } from "@modules/user/entities/user.entity";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,12 +8,23 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
 
 @Entity("formation_academic")
 export class FormationAcademic {
   @PrimaryGeneratedColumn("uuid")
   id: string;
+
+  @Column({ name: "user_id", type: "uuid" })
+  userId: string;
+
+  @Column({ name: "form_id", type: "uuid" })
+  formId: string;
+
+  @Column({ name: "question_id", type: "uuid" })
+  questionId: string;
 
   @Column({ name: "education_level" })
   educationLevel: string;
@@ -32,6 +46,18 @@ export class FormationAcademic {
 
   @Column({ name: "locked_unfinished", nullable: true })
   lockedUnfinished: boolean;
+
+  @ManyToOne(() => User, (user) => user)
+  @JoinColumn({ name: "user_id" })
+  user: User;
+
+  @ManyToOne(() => Form, (form) => form.formationAcademics)
+  @JoinColumn({ name: "form_id" })
+  form: Form;
+
+  @ManyToOne(() => Question, (question) => question.formationAcademic)
+  @JoinColumn({ name: "question_id" })
+  question: Question;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

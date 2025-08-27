@@ -3,6 +3,9 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -11,6 +14,11 @@ import {
   ResumeStyleOptions,
   ResumeVisualStylePreference,
 } from "../constants";
+import { Form } from "@modules/form/entities/form.entity";
+import { User } from "@modules/user/entities/user.entity";
+import { ProfessionalExperience } from "@modules/professional-experience/entities/professional-experience.entity";
+import { FormationAcademic } from "@modules/formation-academic/entities/formation-academic.entity";
+import { Answer } from "@modules/answer/entities/answer.entity";
 
 type LanguagesAndFluency = {
   index: number;
@@ -25,6 +33,9 @@ export class Question {
 
   @Column({ name: "form_id" })
   formId: string;
+
+  @Column({ name: "user_id", type: "uuid" })
+  userId: string;
 
   @Column({ name: "name" })
   name: string;
@@ -85,9 +96,6 @@ export class Question {
   @Column({ name: "professional_position" })
   professionalPosition: string;
 
-  @Column({ name: "professional_experience", nullable: true })
-  professionalExperience: string;
-
   @Column({ name: "desired_position_objective", nullable: true })
   desiredPositionObjective: string;
 
@@ -98,10 +106,24 @@ export class Question {
   additionalInformation: string;
 
   // Experiência profissional
-  // Haverá um relacionamento aqui
+  @OneToMany(
+    () => ProfessionalExperience,
+    (professionalExperience) => professionalExperience.question,
+    {
+      cascade: true,
+    }
+  )
+  professionalExperience: ProfessionalExperience[];
 
   // Formação acadêmica
-  // Haverá um relacionamento aqui
+  @OneToMany(
+    () => FormationAcademic,
+    (formationAcademic) => formationAcademic.question,
+    {
+      cascade: true,
+    }
+  )
+  formationAcademic: FormationAcademic[];
 
   // Habilidades e idiomas
   @Column({ name: "skills_description", type: "text" })
@@ -109,6 +131,19 @@ export class Question {
 
   @Column({ name: "languages_and_fluency", type: "jsonb", nullable: true })
   languagesAndFluency: LanguagesAndFluency[];
+
+  @ManyToOne(() => Form, (form) => form.questions)
+  @JoinColumn({ name: "form_id" })
+  form: Form;
+
+  @ManyToOne(() => User, (user) => user.questions)
+  @JoinColumn({ name: "user_id" })
+  user: User;
+
+  @OneToMany(() => Answer, (answer) => answer.question, {
+    cascade: true,
+  })
+  answers: Answer[];
 
   @Column({ name: "other_information", type: "text", nullable: true })
   otherInformation: string;

@@ -1,3 +1,6 @@
+import { Form } from "@modules/form/entities/form.entity";
+import { Question } from "@modules/question/entities/question.entity";
+import { User } from "@modules/user/entities/user.entity";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,12 +8,23 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
 
 @Entity("professional_experiences")
 export class ProfessionalExperience {
   @PrimaryGeneratedColumn("uuid")
   id: string;
+
+  @Column({ name: "user_id", type: "uuid" })
+  userId: string;
+
+  @Column({ name: "form_id", type: "uuid" })
+  formId: string;
+
+  @Column({ name: "question_id", type: "uuid" })
+  questionId: string;
 
   @Column({ name: "company_name" })
   companyName: string;
@@ -38,6 +52,18 @@ export class ProfessionalExperience {
 
   @Column({ name: "additional_description", type: "text", nullable: true })
   additionalDescription?: string;
+
+  @ManyToOne(() => User, (user) => user.professionalExperiences)
+  @JoinColumn({ name: "user_id" })
+  user: User;
+
+  @ManyToOne(() => Form, (form) => form.professionalExperiences)
+  @JoinColumn({ name: "form_id" })
+  form: Form;
+
+  @ManyToOne(() => Question, (question) => question)
+  @JoinColumn({ name: "question_id" })
+  question: Question;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

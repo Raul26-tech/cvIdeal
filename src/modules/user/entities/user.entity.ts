@@ -1,8 +1,13 @@
+import { Form } from "@modules/form/entities/form.entity";
+import { FormationAcademic } from "@modules/formation-academic/entities/formation-academic.entity";
+import { ProfessionalExperience } from "@modules/professional-experience/entities/professional-experience.entity";
+import { Question } from "@modules/question/entities/question.entity";
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
@@ -34,6 +39,24 @@ export class User {
 
   @Column({ name: "type", type: "varchar" })
   type: userType;
+
+  @OneToMany(() => Form, (form) => form.user)
+  forms: Form[];
+
+  @OneToMany(() => Question, (questions) => questions.user)
+  questions: Question[];
+
+  @OneToMany(
+    () => FormationAcademic,
+    (formationAcademic) => formationAcademic.user
+  )
+  formationAcademic: FormationAcademic[];
+
+  @OneToMany(
+    () => ProfessionalExperience,
+    (professionalExperience) => professionalExperience.user
+  )
+  professionalExperiences: ProfessionalExperience[];
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
