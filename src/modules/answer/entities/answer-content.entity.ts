@@ -5,7 +5,10 @@ import {
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
+import { Answer } from "./answer.entity";
 
 @Entity({ name: "answer_content" })
 export class AnswerContent {
@@ -21,7 +24,9 @@ export class AnswerContent {
   @Column({ name: "answer_id", type: "uuid" })
   answerId: string;
 
-  // Haverá um relacionamento com a entidade de Answer
+  @ManyToOne(() => Answer, (answer) => answer.answerContents)
+  @JoinColumn({ name: "answer_id" })
+  answer: Answer;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
