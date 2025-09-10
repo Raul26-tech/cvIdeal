@@ -6,20 +6,20 @@ import { CreateUserDto } from "../dtos/create-user.dto";
 
 @injectable()
 export class UserRepository {
-  private _repository: Repository<User>;
+  private repository: Repository<User>;
 
   constructor() {
-    this._repository = AppDataSource.getRepository(User);
+    this.repository = AppDataSource.getRepository(User);
   }
 
   async create(data: CreateUserDto) {
-    const user = this._repository.create(data);
+    const user = this.repository.create(data);
 
-    return await this._repository.save(user);
+    return await this.repository.save(user);
   }
 
   async findByEmail(email: string) {
-    const user = await this._repository.findOne({
+    const user = await this.repository.findOne({
       where: {
         email,
       },
@@ -29,7 +29,7 @@ export class UserRepository {
   }
 
   async findById(id: string) {
-    const user = await this._repository.findOne({
+    const user = await this.repository.findOne({
       where: { id },
     });
 
