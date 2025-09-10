@@ -1,5 +1,4 @@
 import { Form } from "@modules/form/entities/form.entity";
-import { Question } from "@modules/question/entities/question.entity";
 import { User } from "@modules/user/entities/user.entity";
 import {
   Entity,
@@ -60,10 +59,6 @@ export class ProfessionalExperience {
   @ManyToOne(() => Form, (form) => form.professionalExperiences)
   @JoinColumn({ name: "form_id" })
   form: Form;
-
-  @ManyToOne(() => Question, (question) => question)
-  @JoinColumn({ name: "question_id" })
-  question: Question;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
