@@ -9,8 +9,10 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_DATABASE,
   synchronize: false,
   logging: true,
-  entities: ["src/modules/**/*{.ts,.js}"],
-  migrations: ["src/framework/db/migrations*{.ts,.js}"],
+  entities: ["src/modules/**/*.entity{.ts,.js}"],
+  // entities: ["src/modules/**/*{.ts,.js}"],
+  migrations: ["src/framework/db/migrations/*{.ts,.js}"],
+  // migrations: ["src/framework/db/migrations*{.ts,.js}"],
 });
 
 export const connectDatabase = async () => {

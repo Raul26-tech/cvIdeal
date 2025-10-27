@@ -15,6 +15,7 @@ export async function catchErrors(
 ) {
   if (error instanceof ZodError) {
     return response.status(400).json({
+      ...error,
       message: error.errors[0].message,
     });
   }
