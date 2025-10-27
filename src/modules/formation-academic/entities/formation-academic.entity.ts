@@ -16,14 +16,8 @@ export class FormationAcademic {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ name: "user_id", type: "uuid" })
-  userId: string;
-
   @Column({ name: "form_id", type: "uuid" })
   formId: string;
-
-  @Column({ name: "question_id", type: "uuid" })
-  questionId: string;
 
   @Column({ name: "education_level" })
   educationLevel: string;
@@ -45,10 +39,6 @@ export class FormationAcademic {
 
   @Column({ name: "locked_unfinished", nullable: true })
   lockedUnfinished: boolean;
-
-  @ManyToOne(() => User, (user) => user)
-  @JoinColumn({ name: "user_id" })
-  user: User;
 
   @ManyToOne(() => Form, (form) => form.formationAcademics)
   @JoinColumn({ name: "form_id" })

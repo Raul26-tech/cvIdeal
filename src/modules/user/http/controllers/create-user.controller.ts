@@ -1,16 +1,17 @@
 import { CreateUserService } from "@modules/user/services/create-user.service";
 import { Request, Response } from "express";
-import { injectable } from "inversify";
-import { container } from "src/framework/container/inversify.config";
+import { inject, injectable } from "inversify";
 
 @injectable()
 export class CreateUserController {
+  constructor(
+    @inject("CreateUserService")
+    private readonly createUserService: CreateUserService
+  ) {}
   async handle(req: Request, res: Response) {
-    const createUserService = container.resolve(CreateUserService);
-
     const { name, email, cpf, password, phone } = req.body;
 
-    const user = await createUserService.execute({
+    const user = await this.createUserService.execute({
       name,
       cpf,
       email,

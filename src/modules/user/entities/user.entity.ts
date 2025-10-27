@@ -1,6 +1,4 @@
 import { Form } from "@modules/form/entities/form.entity";
-import { FormationAcademic } from "@modules/formation-academic/entities/formation-academic.entity";
-import { ProfessionalExperience } from "@modules/professional-experience/entities/professional-experience.entity";
 import {
   Column,
   CreateDateColumn,
@@ -41,18 +39,6 @@ export class User {
 
   @OneToMany(() => Form, (form) => form.user)
   forms: Form[];
-
-  @OneToMany(
-    () => FormationAcademic,
-    (formationAcademic) => formationAcademic.user
-  )
-  formationAcademic: FormationAcademic[];
-
-  @OneToMany(
-    () => ProfessionalExperience,
-    (professionalExperience) => professionalExperience.user
-  )
-  professionalExperiences: ProfessionalExperience[];
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
